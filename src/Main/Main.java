@@ -15,8 +15,8 @@ public class Main {
 		
 		// INI Modele
 		//////////////////////////////////////////////////
-		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/8);
-		int puissance = 2;
+		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/16);
+		int puissance = 3;
 		f.sin();
 		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();
