@@ -50,7 +50,9 @@ public class MyViewTest implements ActionListener, Observer {
 	private JPanel listPane = null;
 	private JLabel labelImg =null;
 	private JLabel labelRel =null;
-	
+	private JButton bsinus = null;
+	private JButton bcosinus = null;
+	private JPanel usuelPanel = null;
 	
 
 	public MyViewTest(FFT model, MyControllerTest controller, ArrayList<Complex> tab) {
@@ -66,7 +68,10 @@ public class MyViewTest implements ActionListener, Observer {
 		contentPane = new JPanel();
 		contentPane.setLayout(new GridLayout(1,2));
 		
-
+		usuelPanel= new JPanel();
+		usuelPanel.setLayout(new GridLayout(1,2));
+		bsinus =new JButton("sinus");
+		bcosinus= new JButton("cosinus");
 		
 		// ajout des champs pour ajouter des complexes
 		button = new JButton("Ajouter");
@@ -107,7 +112,7 @@ public class MyViewTest implements ActionListener, Observer {
 		list.setVisible(true);
 		listPane.add(list);
 		
-		
+		contentPane.add(usuelPanel);
 		contentPane.add(modifieComplexPane);
 		contentPane.add(listPane);
 
