@@ -1,16 +1,22 @@
 package controller;
 
-import model.FFT;
+import java.util.ArrayList;
+
+import model.Complex;
+import model.Echantillon;
+import model.FonctionUsuelle;
 import view.MyViewTest;
 
 public class MyControllerTest {
 	//Modele
-	private FFT myFFT = null;
+	private Echantillon myEchantillon = null;
+	private FonctionUsuelle usu = null;
 	//View
 	public MyViewTest view = null;
 
-	public MyControllerTest(FFT fft){
-		this.myFFT = fft;
+	public MyControllerTest(Echantillon ech,FonctionUsuelle usu){
+		this.myEchantillon = ech;
+		this.usu = usu;
 	}
 	
 	public void init (MyViewTest v)
@@ -26,7 +32,23 @@ public class MyControllerTest {
 		this.view.close();
 	}
 
-	//public void notifyXXXXXXChanged(int aaa) {
-	//	this.XXX.setXXXX(aaa);
-	//}
+	public void notifyPuissanceChanged(int p) {
+		this.myEchantillon.setPuissance(p);
+	}
+	
+	public void notifySignalChanged(ArrayList<Complex> newSignal) {
+		this.myEchantillon.setSignal(newSignal);
+	}
+	
+	public void notifyDebutChanged(double start) {
+		this.usu.setDebutIntervalle(start);
+	}
+	
+	public void notifyFinChanged(double end) {
+		this.usu.setFinIntervalle(end);
+	}
+	
+	public void notifyPasChanged(double pas) {
+		this.usu.setPas(pas);
+	}
 }

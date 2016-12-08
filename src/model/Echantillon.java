@@ -21,6 +21,9 @@ public class Echantillon extends Observable {
 		puissance = p;
 		fenetreList = new ArrayList<Fenetre>();
 		LOGGER.debug("echantillon créé");
+		setChanged();
+		notifyObservers(this.signal);
+		notifyObservers(this.puissance);
 	}
 
 	public void rempliFenetre() {
@@ -73,6 +76,8 @@ public class Echantillon extends Observable {
 
 	public void setSignal(ArrayList<Complex> signal) {
 		this.signal = signal;
+		setChanged();
+		notifyObservers(this.signal);
 	}
 
 	public int getPuissance() {
@@ -81,6 +86,8 @@ public class Echantillon extends Observable {
 
 	public void setPuissance(int puissance) {
 		this.puissance = puissance;
+		setChanged();
+		notifyObservers(this.puissance);
 	}
 
 	public ArrayList<Fenetre> getFenetreList() {
@@ -89,10 +96,14 @@ public class Echantillon extends Observable {
 
 	public void setFenetreList(ArrayList<Fenetre> fenetreList) {
 		this.fenetreList = fenetreList;
+		setChanged();
+		notifyObservers(this.fenetreList);
 	}
 	
 	public void add(Complex c){
 		signal.add(c);
+		setChanged();
+		notifyObservers(this.signal);
 	}
 	
 
