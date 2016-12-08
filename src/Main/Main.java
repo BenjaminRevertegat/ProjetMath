@@ -15,7 +15,7 @@ public class Main {
 		// INI Modele
 		//////////////////////////////////////////////////
 		ArrayList<Complex> t = new ArrayList<Complex>();
-		for( int i = 0 ; i< 20 ; i++){
+		for( int i = 0 ; i< 10 ; i++){
 			t.add(new Complex(i,0));
 		}
 		int puissance = 2;

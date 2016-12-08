@@ -27,30 +27,26 @@ public class Echantillon extends Observable {
 		Fenetre local = new Fenetre();
 		double taille = Math.pow(2, puissance);
 		int finFenetre = 0;
-
 		// on parcours toutes les valeurs du signal !
 		for (int i = 0; i < signal.size(); i++) {
 			// si on n'a pas atteind la fin de la fenetre
-			if (finFenetre < taille) {
-				// ajout de i dans la fenetre actuelle.
-				local.add(signal.get(i));
-				// on avance dans la fenetre
-				finFenetre++;
-			}
+			LOGGER.debug("complex numéro : " + i);
 			// On atteinds la fin d'une fenetre
-			else {
+			if (finFenetre == taille) {
 				// on ajoute l'ancien 1
-				finFenetre = 2;
+				finFenetre = 1;
+				LOGGER.debug("nouvelle fenetre");
 				// fenetrelist ajout une fenetre
 				fenetreList.add(local);
 				// on réinitialise la fenetre
 				local = new Fenetre();
-
 				// on ajoute le dernier i de la fenetre d'avant
 				local.add(signal.get(i - 1));
-				local.add(signal.get(i));
 			}
-
+			// ajout de i dans la fenetre actuelle.
+			local.add(signal.get(i));
+			// on avance dans la fenetre
+			finFenetre++;
 		}
 		// On rempli la dernière fenetre de 0
 		if (local.size() < taille) {
@@ -58,8 +54,8 @@ public class Echantillon extends Observable {
 				local.add(new Complex(0, 0));
 				LOGGER.debug("ajout d'un 0");
 			}
-			fenetreList.add(local);
 		}
+		fenetreList.add(local);
 
 	}
 
