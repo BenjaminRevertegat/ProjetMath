@@ -3,7 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-
+import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,6 +44,14 @@ public class MyViewTest implements ActionListener, Observer {
 	private DefaultListModel ContenueList=null;
 	private JList list=null;
 	private ListSelectionListener l;
+	private JTextField reel =null;
+	private JTextField imaginaire =null;
+	private JPanel modifieComplexPane =null;
+	private JPanel listPane = null;
+	private JLabel labelImg =null;
+	private JLabel labelRel =null;
+	
+	
 
 	public MyViewTest(FFT model, MyControllerTest controller, ArrayList<Complex> tab) {
 		this.myfft = model;
@@ -53,40 +62,57 @@ public class MyViewTest implements ActionListener, Observer {
 
 	private void buildFrame(ArrayList<Complex> tab) {
 		frame = new JFrame();
-		frame.setSize(1200, 800);
-		GridLayout aze =new GridLayout(2, 2);
+		frame.setSize(1200, 800);		
 		contentPane = new JPanel();
-		spinner = new JSpinner();
-		contentPane.add(spinner);
+		contentPane.setLayout(new GridLayout(1,2));
+		
+
+		
+		// ajout des champs pour ajouter des complexes
 		button = new JButton("Ajouter");
 		button.addActionListener(this);
 		button.setName("Ajouter");
-		contentPane.add(button);
+		modifieComplexPane =new JPanel();
+		modifieComplexPane.setLayout(new GridLayout(3,2));
+		labelRel= new JLabel("Re()=");
+		labelRel.setSize(20,10);
+		modifieComplexPane.add(labelRel);
+		reel = new JTextField();
+		modifieComplexPane.add(reel);
+		labelImg =  new JLabel("Img()=");
+		labelImg.setSize(20,10);
+		modifieComplexPane.add(labelImg);		
+		imaginaire = new JTextField();
+		modifieComplexPane.add(imaginaire);
+		modifieComplexPane.add(button);
 		
+		//suppr un complex
 		enlever = new JButton("Supprimer");
 		enlever.addActionListener(this);
 		enlever.setName("Enlever");
-		contentPane.add(enlever);
-	
-		JTable table = new JTable();
-		ContenueList =new DefaultListModel();
+		modifieComplexPane.add(enlever);
 		
+		//affichage de la liste des complexes
+		listPane = new JPanel();
+		ContenueList =new DefaultListModel();
         list = new JList(ContenueList);
-     
 	list.addListSelectionListener(l);
-     
-		JLabel cases= new JLabel();
+	
 		for (int i=0; i<tab.size(); i++)
 		{
-			cases.setText("cazahjkzera");
+
 			ContenueList.addElement(tab.get(i));;
-			table.add(cases);
-		}
-		table.setVisible(true);
+			
+		}	
 		list.setVisible(true);
-		contentPane.add(cases);
-		contentPane.add(list);
-		contentPane.add(table);
+		listPane.add(list);
+		
+		
+		contentPane.add(modifieComplexPane);
+		contentPane.add(listPane);
+
+
+	
 		frame.setSize(1200, 800);
 		frame.setContentPane(contentPane);
 		frame.setTitle("FFT");
