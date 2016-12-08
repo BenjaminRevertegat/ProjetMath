@@ -23,15 +23,16 @@ public class Main {
 		ech.rempliFenetre();
 		ech.affiche();
 		
+		System.out.println("========================");
+		for(int i=0; i<ech.getFenetreList().size();i++){
+			FFT fft = new FFT(ech.getFenetreList().get(i).getVal());
+			fft.effectuefft();
+			System.out.println("Aj  = " + fft.outputToString());
+			fft.effectueModule();
+			System.out.println("Module : " + fft.moduleToString());
+			System.out.println("========================");
+		}
 		
-		
-		/*
-		FFT fft = new FFT(t);
-		fft.effectuefft();
-		System.out.println("Aj  = " + fft.outputToString());
-		fft.effectueModule();
-		System.out.println("Module : " + fft.moduleToString());
-		*/
 		///////////////////////////////////////////////////
 		
 		// INI Controller-modèle

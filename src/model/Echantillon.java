@@ -67,4 +67,33 @@ public class Echantillon extends Observable {
 		}
 	}
 
+	public ArrayList<Complex> getSignal() {
+		return signal;
+	}
+
+	public void setSignal(ArrayList<Complex> signal) {
+		this.signal = signal;
+	}
+
+	public int getPuissance() {
+		return puissance;
+	}
+
+	public void setPuissance(int puissance) {
+		this.puissance = puissance;
+	}
+
+	public ArrayList<Fenetre> getFenetreList() {
+		return fenetreList;
+	}
+
+	public void setFenetreList(ArrayList<Fenetre> fenetreList) {
+		this.fenetreList = fenetreList;
+	}
+	
+	public void add(Complex c){
+		signal.add(c);
+	}
+	
+
 }
