@@ -28,18 +28,26 @@ public class FFT extends Observable {
 			omegaList.add(coeffW(tailleInverse));
 			tailleInverse = tailleInverse * 2;
 		}
+		LOGGER.debug("Liste des Omegas pour N = " + input.size());
 	}
-	
-	public void effectuefft(){
-		output = new ArrayList<Complex>();
-		output = this.fft(input);
+
+	public void effectuefft() {
+		if (input.size() % 2 != 0) {
+			LOGGER.warn("Attention, la taille de l'input n'est pas en 2^N");
+		} else {
+			output = new ArrayList<Complex>();
+			output = this.fft(input);
+			LOGGER.debug("FFT effectué ");
+		}
+
 	}
-	
-	public void effectueModule(){
+
+	public void effectueModule() {
 		moduleList = new ArrayList<Double>();
-		for (int i= 0 ; i < output.size() ; i++){
+		for (int i = 0; i < output.size(); i++) {
 			moduleList.add(output.get(i).module());
 		}
+		LOGGER.debug("Calcul du module effectué");
 	}
 
 	private ArrayList<Complex> fft(ArrayList<Complex> x) {
@@ -103,20 +111,20 @@ public class FFT extends Observable {
 		return Coef;
 
 	}
-	
-	public String outputToString(){
+
+	public String outputToString() {
 		String message = new String();
-		
-		for(int i = 0 ; i< output.size(); i++){
+
+		for (int i = 0; i < output.size(); i++) {
 			message = message + output.get(i).toString() + " | ";
 		}
 		return message;
 	}
-	
-	public String moduleToString(){
+
+	public String moduleToString() {
 		String message = new String();
-		
-		for(int i = 0 ; i< moduleList.size(); i++){
+
+		for (int i = 0; i < moduleList.size(); i++) {
 			message = message + moduleList.get(i) + " | ";
 		}
 		return message;
@@ -145,7 +153,5 @@ public class FFT extends Observable {
 	public static void setOmegaList(ArrayList<Complex> omegaList) {
 		FFT.omegaList = omegaList;
 	}
-
-	
 
 }

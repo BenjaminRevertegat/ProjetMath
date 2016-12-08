@@ -3,56 +3,72 @@ package model;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Echantillon extends Observable {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(Echantillon.class);
 	// liste des complexe représentant le signal
 	private ArrayList<Complex> signal;
-	// 2^puissance
+	// 2^puissance : taille d'une fenetre
 	private int puissance;
-	private int frequenceEchant;
 	// liste des fenetres
 	private ArrayList<Fenetre> fenetreList;
 
-	public Echantillon(ArrayList<Complex> input, int p, int fr) {
+	public Echantillon(ArrayList<Complex> input, int p) {
 		signal = input;
 		puissance = p;
-		frequenceEchant = fr;
 		fenetreList = new ArrayList<Fenetre>();
+		LOGGER.debug("echantillon créé");
 	}
 
 	public void rempliFenetre() {
 		Fenetre local = new Fenetre();
 		double taille = Math.pow(2, puissance);
-		int finFenetre = 1;
-		local.add(new Complex(0,0));
+		int finFenetre = 0;
 
+		// on parcours toutes les valeurs du signal !
 		for (int i = 0; i < signal.size(); i++) {
-			//si on n'a pas atteind la fin de la fenetre
+			// si on n'a pas atteind la fin de la fenetre
 			if (finFenetre < taille) {
-				//ajout de i dans la fenetre actuelle.
+				// ajout de i dans la fenetre actuelle.
 				local.add(signal.get(i));
-				//on avance dans la fenetre
+				// on avance dans la fenetre
 				finFenetre++;
-			} else {
-				//on ajoute l'ancien 1
-				finFenetre = 1;
-				//fenetrelist ajout une fenetre
+			}
+			// On atteinds la fin d'une fenetre
+			else {
+				// on ajoute l'ancien 1
+				finFenetre = 2;
+				// fenetrelist ajout une fenetre
 				fenetreList.add(local);
-				//on réinitialise la fenetre
+				// on réinitialise la fenetre
 				local = new Fenetre();
-				//on ajoute le dernier i de la fenetre d'avant
+
+				// on ajoute le dernier i de la fenetre d'avant
+				local.add(signal.get(i - 1));
 				local.add(signal.get(i));
 			}
 
 		}
-		//On rempli la dernière fenetre de 0
-		if (local.size() < taille){
-			while(local.size() < taille)
-				local.add(new Complex(0,0));
+		// On rempli la dernière fenetre de 0
+		if (local.size() < taille) {
+			while (local.size() < taille) {
+				local.add(new Complex(0, 0));
+				LOGGER.debug("ajout d'un 0");
+			}
+			fenetreList.add(local);
 		}
 
 	}
-	
-	
+
+	public void affiche() {
+		LOGGER.debug("nombre de Fenetre : " + fenetreList.size());
+		for (int i = 0; i < fenetreList.size(); i++) {
+			LOGGER.info("Fenetre " + i + " :");
+			fenetreList.get(i).affiche();
+		}
+	}
 
 }

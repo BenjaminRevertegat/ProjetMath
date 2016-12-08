@@ -1,7 +1,11 @@
 package model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Complex {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(Complex.class);
 	// Partie réel
 	private double PEntiere;
 	// Partie imaginaire
@@ -83,6 +87,7 @@ public class Complex {
 			coseq = 0;
 		}
 		Complex resultat = new Complex(moduleq * coseq, moduleq * sineq);
+		LOGGER.debug("Puissance calculée");
 		return resultat;
 	}
 

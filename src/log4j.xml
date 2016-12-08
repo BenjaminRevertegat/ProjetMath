@@ -12,7 +12,7 @@
     
     
     <!-- CATEGORIES -->
-    <category name="model"> <priority value="DEBUG"/>
+    <category name="model"> <priority value="INFO"/>
     </category>
     
     
