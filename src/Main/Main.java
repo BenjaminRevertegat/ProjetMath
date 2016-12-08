@@ -45,8 +45,9 @@ public class Main {
 		// INI Controller-modèle
 		MyControllerTest control = new MyControllerTest(fft);
 		//INI View
-		MyViewTest view = new MyViewTest(fft,control);
+		MyViewTest view = new MyViewTest(fft,control,tab);
 		// INI Controller-view
+		
 		control.init(view);
 		
 		control.displayViews();
