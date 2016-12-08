@@ -26,13 +26,14 @@ import model.FFT;
 
 import Main.Main;
 import model.Complex;
+import model.Echantillon;
 
 public class MyViewTest implements ActionListener, Observer {
 
 	// Mon Controller
 	private MyControllerTest myController = null;
 	// Mon modèle
-	private FFT myfft = null;
+	private Echantillon myEchantillon = null;
 
 	private JFrame frame = null;
 	private JPanel contentPane = null;
@@ -53,25 +54,54 @@ public class MyViewTest implements ActionListener, Observer {
 	private JButton bsinus = null;
 	private JButton bcosinus = null;
 	private JPanel usuelPanel = null;
+	private JTextField Pas=null;
+	private JTextField Debut=null;
+	private JTextField Fin=null;
+	private JLabel TextPas=null;
+	private JLabel TextDebut=null;
+	private JLabel TextFin=null;
+	private JPanel choixPanel = null;
 	
-
-	public MyViewTest(FFT model, MyControllerTest controller, ArrayList<Complex> tab) {
-		this.myfft = model;
-		this.myfft.addObserver(this);
+	
+	
+	
+	
+	public MyViewTest(Echantillon model, MyControllerTest controller) {
+		this.myEchantillon = model;
+		this.myEchantillon.addObserver(this);
 		this.myController = controller;
-		buildFrame(tab);
+		buildFrame(model.getSignal());
 	}
 
 	private void buildFrame(ArrayList<Complex> tab) {
-		frame = new JFrame();
-		frame.setSize(1200, 800);		
+		frame = new JFrame();	
 		contentPane = new JPanel();
 		contentPane.setLayout(new GridLayout(1,2));
 		
+		//boutons pour les fcts usuelles
 		usuelPanel= new JPanel();
-		usuelPanel.setLayout(new GridLayout(1,2));
+		usuelPanel.setLayout(new GridLayout(3,1));
 		bsinus =new JButton("sinus");
 		bcosinus= new JButton("cosinus");
+		usuelPanel.add(bcosinus);
+		usuelPanel.add(bsinus);
+		// paramètres pour les fcts usuelles
+		Pas=new JTextField();
+		Debut=new JTextField();
+		Fin=new JTextField();
+		TextPas=new JLabel("Choissisez le pas");
+		TextDebut=new JLabel("debut de l'intervalle");
+		TextFin=new JLabel("fin de l'intervalle");
+		choixPanel = new JPanel();
+		choixPanel.setLayout(new GridLayout(2,3));
+		choixPanel.add(TextPas);
+		choixPanel.add(TextDebut);
+		choixPanel.add(TextFin);
+		choixPanel.add(Pas);
+		choixPanel.add(Debut);
+		choixPanel.add(Fin);
+		usuelPanel.add(choixPanel);
+		
 		
 		// ajout des champs pour ajouter des complexes
 		button = new JButton("Ajouter");
@@ -117,8 +147,8 @@ public class MyViewTest implements ActionListener, Observer {
 		contentPane.add(listPane);
 
 
-	
-		frame.setSize(1200, 800);
+		
+
 		frame.setContentPane(contentPane);
 		frame.setTitle("FFT");
 		frame.pack();
@@ -134,6 +164,13 @@ public class MyViewTest implements ActionListener, Observer {
 	public void display() {
 		frame.setVisible(true);
 	}
+	
+	public void setFrameSize(int a, int b)
+	{
+		frame.setSize(a, b);	
+	}
+	
+	
 
 	@Override
 	public void update(Observable o, Object arg) {

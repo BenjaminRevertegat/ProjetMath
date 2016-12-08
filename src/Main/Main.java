@@ -37,19 +37,19 @@ public class Main {
 		///////////////////////////////////////////////////
 		
 		// INI Controller-modèle
-	//	MyControllerTest control = new MyControllerTest(fft);
+		MyControllerTest control = new MyControllerTest(ech);
 		//INI View
 
 	//	MyViewTest view = new MyViewTest(fft,control);
 		// INI Controller-view
 	//	control.init(view);
-		//MyViewTest view = new MyViewTest(fft,control,tab);
+		MyViewTest view = new MyViewTest(ech,control);
 		// INI Controller-view
-		
-		//control.init(view);
+		view.setFrameSize(1200, 400);
+		control.init(view);
 		
 		//AFFICHAGE :
-		//control.displayViews();
+		control.displayViews();
 	}
 
 }
