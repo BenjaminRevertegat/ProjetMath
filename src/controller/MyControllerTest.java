@@ -1,16 +1,17 @@
 package controller;
 
+import model.Echantillon;
 import model.FFT;
 import view.MyViewTest;
 
 public class MyControllerTest {
 	//Modele
-	private FFT myFFT = null;
+	private Echantillon myEchantillon = null;
 	//View
 	public MyViewTest view = null;
 
-	public MyControllerTest(FFT fft){
-		this.myFFT = fft;
+	public MyControllerTest(Echantillon echantillon){
+		this.myEchantillon = echantillon;
 	}
 	
 	public void init (MyViewTest v)
