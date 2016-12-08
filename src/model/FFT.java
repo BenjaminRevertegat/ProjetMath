@@ -38,6 +38,8 @@ public class FFT extends Observable {
 			output = new ArrayList<Complex>();
 			output = this.fft(input);
 			LOGGER.debug("FFT effectué ");
+			setChanged();
+			notifyObservers(this.output);
 		}
 
 	}
@@ -48,6 +50,8 @@ public class FFT extends Observable {
 			moduleList.add(output.get(i).module());
 		}
 		LOGGER.debug("Calcul du module effectué");
+		setChanged();
+		notifyObservers(this.moduleList);
 	}
 
 	private ArrayList<Complex> fft(ArrayList<Complex> x) {
@@ -144,6 +148,8 @@ public class FFT extends Observable {
 
 	public void setOutput(ArrayList<Complex> output) {
 		this.output = output;
+		setChanged();
+		notifyObservers(this.output);
 	}
 
 	public static ArrayList<Complex> getOmegaList() {
@@ -153,5 +159,17 @@ public class FFT extends Observable {
 	public static void setOmegaList(ArrayList<Complex> omegaList) {
 		FFT.omegaList = omegaList;
 	}
+
+	public ArrayList<Double> getModuleList() {
+		return moduleList;
+	}
+
+	public void setModuleList(ArrayList<Double> moduleList) {
+		this.moduleList = moduleList;
+		setChanged();
+		notifyObservers(this.moduleList);
+	}
+	
+	
 
 }

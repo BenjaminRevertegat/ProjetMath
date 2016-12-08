@@ -1,11 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FonctionUsuelle {
+public class FonctionUsuelle extends Observable {
+	
+	/////////////RAJOUTER LES SET CHANGED ET NOTIFY DANS FCT USU
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FonctionUsuelle.class);
 	private double debutIntervalle;
@@ -18,6 +21,10 @@ public class FonctionUsuelle {
 		finIntervalle = f;
 		pas = p;
 		result = new ArrayList<Complex>();
+		setChanged();
+		notifyObservers(this.debutIntervalle);
+		notifyObservers(this.finIntervalle);
+		notifyObservers(this.pas);
 	}
 	
 	public double calculTailleIntervalle(){
