@@ -35,16 +35,14 @@ public class Main {
 		// INI Controller-modèle
 	//	MyControllerTest control = new MyControllerTest(fft);
 		//INI View
-<<<<<<< HEAD
+
 	//	MyViewTest view = new MyViewTest(fft,control);
 		// INI Controller-view
 	//	control.init(view);
-=======
-		MyViewTest view = new MyViewTest(fft,control,tab);
+		//MyViewTest view = new MyViewTest(fft,control,tab);
 		// INI Controller-view
 		
-		control.init(view);
->>>>>>> 3695f0ad9316d1a4118701430ff36838322a489a
+		//control.init(view);
 		
 		//AFFICHAGE :
 		//control.displayViews();
