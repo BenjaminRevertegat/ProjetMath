@@ -48,6 +48,9 @@ public class Complex {
 		if (this.PImaginaire > 0) {
 			sortie = sortie + " +" + this.PImaginaire + "i";
 		}
+		if ((this.PImaginaire == 0)&&(this.PEntiere == 0)){
+			sortie = " 0 ";
+		}
 		return sortie;
 	}
 

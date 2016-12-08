@@ -6,6 +6,7 @@ import controller.MyControllerTest;
 import model.Complex;
 import model.Echantillon;
 import model.FFT;
+import model.FonctionUsuelle;
 import view.MyViewTest;
 
 public class Main {
@@ -14,12 +15,10 @@ public class Main {
 		
 		// INI Modele
 		//////////////////////////////////////////////////
-		ArrayList<Complex> t = new ArrayList<Complex>();
-		for( int i = 0 ; i< 10 ; i++){
-			t.add(new Complex(i,0));
-		}
+		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/8);
 		int puissance = 2;
-		Echantillon ech = new Echantillon(t,puissance);
+		f.sin();
+		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();
 		ech.affiche();
 		
@@ -32,6 +31,8 @@ public class Main {
 			System.out.println("Module : " + fft.moduleToString());
 			System.out.println("========================");
 		}
+		
+		
 		
 		///////////////////////////////////////////////////
 		
