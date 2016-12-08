@@ -138,7 +138,7 @@ public class MyViewTest implements ActionListener, Observer {
 		listPane = new JPanel();
 		ContenueList =new DefaultListModel();
         list = new JList(ContenueList);
-	list.addListSelectionListener(l);
+        list.addListSelectionListener(l);
 	
 		for (int i=0; i<tab.size(); i++)
 		{
@@ -187,8 +187,8 @@ public class MyViewTest implements ActionListener, Observer {
 		
 		if (source=="Ajouter")
 		{
-			ArrayList<Complex> tempo = myEchantillon.getSignal().add(new Complex(Integer.parseInt(this.reel.getValue().toString()),Integer.parseInt(this.imaginaire.getValue().toString())
-			this.myController.notifySignalChanged();
+		//	ArrayList<Complex> tempo = myEchantillon.getSignal().add(new Complex(Integer.parseInt(this.reel.getValue().toString()),Integer.parseInt(this.imaginaire.getValue().toString())
+		//	this.myController.notifySignalChanged();
 			ContenueList.addElement(new Complex((int)(Math.random()*100),(int)(Math.random()*100)));
 		}
 		if (source=="Supprimer")
