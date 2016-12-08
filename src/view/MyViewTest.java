@@ -37,7 +37,6 @@ public class MyViewTest implements ActionListener, Observer {
 
 	private JFrame frame = null;
 	private JPanel contentPane = null;
-	private JSpinner spinner = null;
 	private JButton button = null;
 	private JButton enlever = null;
 	private JLabel label = null;
@@ -82,7 +81,9 @@ public class MyViewTest implements ActionListener, Observer {
 		usuelPanel= new JPanel();
 		usuelPanel.setLayout(new GridLayout(3,1));
 		bsinus =new JButton("sinus");
+		bsinus.addActionListener(this);
 		bcosinus= new JButton("cosinus");
+		bcosinus.addActionListener(this);
 		usuelPanel.add(bcosinus);
 		usuelPanel.add(bsinus);
 		// paramètres pour les fcts usuelles
@@ -184,16 +185,25 @@ public class MyViewTest implements ActionListener, Observer {
 		// this.controller.notifyVolumeChanged(Integer.parseInt(this.spinner.getValue().toString()));
 		
 	
-		Object composant = e.getSource();
-		composant.getClass();
-		System.out.println(composant.getClass().getName());
-		if (composant.getClass().getName()=="Ajouter")
+		Object source = e.getActionCommand();
+		
+		System.out.println(source);
+		
+		if (source=="Ajouter")
 		{
 			ContenueList.addElement(new Complex((int)(Math.random()*100),(int)(Math.random()*100)));
 		}
-		if (composant.getClass().getName()=="Enlever")
+		if (source=="Supprimer")
 		{
 			ContenueList.remove(0);
+		}
+		if (source=="cosinus")
+		{
+			 System.out.println("cosinus de "+Debut.getText()+" à "+Fin.getText()+" avec un pas de "+Pas.getText() );
+		}
+		if (source=="sinus")
+		{
+			System.out.println("sinus de "+Debut.getText()+" à "+Fin.getText()+" avec un pas de "+Pas.getText() );
 		}
 	}
 	
