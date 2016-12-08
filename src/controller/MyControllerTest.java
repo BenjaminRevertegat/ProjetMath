@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Complex;
 import model.Echantillon;
+import model.FFT;
 import model.FonctionUsuelle;
 import view.MyViewTest;
 
@@ -11,12 +12,14 @@ public class MyControllerTest {
 	//Modele
 	private Echantillon myEchantillon = null;
 	private FonctionUsuelle usu = null;
+	private FFT fft = null;
 	//View
 	public MyViewTest view = null;
 
-	public MyControllerTest(Echantillon ech,FonctionUsuelle usu){
+	public MyControllerTest(Echantillon ech,FonctionUsuelle usu,FFT fft){
 		this.myEchantillon = ech;
 		this.usu = usu;
+		this.fft = fft;
 	}
 	
 	public void init (MyViewTest v)
@@ -50,5 +53,13 @@ public class MyControllerTest {
 	
 	public void notifyPasChanged(double pas) {
 		this.usu.setPas(pas);
+	}
+	
+	public void notifyOutputChanged(ArrayList<Complex> out) {
+		this.fft.setOutput(out);
+	}
+	
+	public void notifyPasChanged(ArrayList<Double> mod) {
+		this.fft.setModuleList(mod);
 	}
 }
