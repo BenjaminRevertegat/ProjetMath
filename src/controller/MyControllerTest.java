@@ -1,11 +1,8 @@
 package controller;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
 import model.Complex;
->>>>>>> a4fe712551825e459b646bec7a91b91f5530bf63
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
@@ -14,13 +11,6 @@ import view.MyViewTest;
 public class MyControllerTest {
 	//Modele
 	private Echantillon myEchantillon = null;
-<<<<<<< HEAD
-	//View
-	public MyViewTest view = null;
-
-	public MyControllerTest(Echantillon echantillon){
-		this.myEchantillon = echantillon;
-=======
 	private FonctionUsuelle usu = null;
 	private FFT fft = null;
 	//View
@@ -30,7 +20,6 @@ public class MyControllerTest {
 		this.myEchantillon = ech;
 		this.usu = usu;
 		this.fft = fft;
->>>>>>> a4fe712551825e459b646bec7a91b91f5530bf63
 	}
 	
 	public void init (MyViewTest v)

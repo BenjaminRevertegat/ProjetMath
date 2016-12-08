@@ -35,9 +35,9 @@ public class Main {
 		
 		
 		///////////////////////////////////////////////////
-		
+		FFT fftlocal = new FFT(ech.getFenetreList().get(0).getVal());
 		// INI Controller-modèle
-		MyControllerTest control = new MyControllerTest(ech);
+		MyControllerTest control = new MyControllerTest(ech, f, fftlocal);
 		//INI View
 
 	//	MyViewTest view = new MyViewTest(fft,control);
