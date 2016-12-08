@@ -15,8 +15,8 @@ public class Main {
 		
 		// INI Modele
 		//////////////////////////////////////////////////
-		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/16);
-		int puissance = 3;
+		FonctionUsuelle f = new FonctionUsuelle(-Math.PI,Math.PI,Math.PI/16);
+		int puissance = 2;
 		f.sin();
 		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();
@@ -39,11 +39,8 @@ public class Main {
 		// INI Controller-modèle
 		MyControllerTest control = new MyControllerTest(ech, f, fftlocal);
 		//INI View
-
-	//	MyViewTest view = new MyViewTest(fft,control);
-		// INI Controller-view
-	//	control.init(view);
-		MyViewTest view = new MyViewTest(ech,control);
+		MyViewTest view = new MyViewTest(ech,f,control);
+		
 		// INI Controller-view
 		view.setFrameSize(1200, 400);
 		control.init(view);

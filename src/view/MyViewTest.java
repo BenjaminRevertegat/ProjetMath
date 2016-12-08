@@ -5,12 +5,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 import controller.MyControllerTest;
 import model.FFT;
-
+import model.FonctionUsuelle;
 import Main.Main;
 import model.Complex;
 import model.Echantillon;
@@ -34,6 +36,11 @@ public class MyViewTest implements ActionListener, Observer {
 	private MyControllerTest myController = null;
 	// Mon modèle
 	private Echantillon myEchantillon = null;
+	private FonctionUsuelle usu = null;
+	
+	private NumberFormat format = null;
+	private JFormattedTextField reel = null;
+	private JFormattedTextField imaginaire = null;
 
 	private JFrame frame = null;
 	private JPanel contentPane = null;
@@ -44,8 +51,6 @@ public class MyViewTest implements ActionListener, Observer {
 	private DefaultListModel ContenueList=null;
 	private JList list=null;
 	private ListSelectionListener l;
-	private JTextField reel =null;
-	private JTextField imaginaire =null;
 	private JPanel modifieComplexPane =null;
 	private JPanel listPane = null;
 	private JLabel labelImg =null;
@@ -62,12 +67,12 @@ public class MyViewTest implements ActionListener, Observer {
 	private JPanel choixPanel = null;
 	
 	
-	
-	
-	
-	public MyViewTest(Echantillon model, MyControllerTest controller) {
+	public MyViewTest(Echantillon model, FonctionUsuelle usu, MyControllerTest controller) {
 		this.myEchantillon = model;
 		this.myEchantillon.addObserver(this);
+		this.usu = usu;
+		this.usu.addObserver(this);
+		
 		this.myController = controller;
 		buildFrame(model.getSignal());
 	}
@@ -105,6 +110,7 @@ public class MyViewTest implements ActionListener, Observer {
 		
 		
 		// ajout des champs pour ajouter des complexes
+		format = NumberFormat.getNumberInstance();
 		button = new JButton("Ajouter");
 		button.addActionListener(this);
 		button.setName("Ajouter");
@@ -113,12 +119,12 @@ public class MyViewTest implements ActionListener, Observer {
 		labelRel= new JLabel("Re()=");
 		labelRel.setSize(20,10);
 		modifieComplexPane.add(labelRel);
-		reel = new JTextField();
+		reel = new JFormattedTextField(format);
 		modifieComplexPane.add(reel);
 		labelImg =  new JLabel("Img()=");
 		labelImg.setSize(20,10);
 		modifieComplexPane.add(labelImg);		
-		imaginaire = new JTextField();
+		imaginaire = new JFormattedTextField(format);
 		modifieComplexPane.add(imaginaire);
 		modifieComplexPane.add(button);
 		
@@ -147,17 +153,11 @@ public class MyViewTest implements ActionListener, Observer {
 		contentPane.add(modifieComplexPane);
 		contentPane.add(listPane);
 
-
-		
-
 		frame.setContentPane(contentPane);
 		frame.setTitle("FFT");
 		frame.pack();
 	}
 	
-	
-	
-
 	public void close() {
 		frame.dispose();
 	}
@@ -170,8 +170,6 @@ public class MyViewTest implements ActionListener, Observer {
 	{
 		frame.setSize(a, b);	
 	}
-	
-	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -183,14 +181,14 @@ public class MyViewTest implements ActionListener, Observer {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// this.controller.notifyVolumeChanged(Integer.parseInt(this.spinner.getValue().toString()));
-		
-	
 		Object source = e.getActionCommand();
 		
 		System.out.println(source);
 		
 		if (source=="Ajouter")
 		{
+			ArrayList<Complex> tempo = myEchantillon.getSignal().add(new Complex(Integer.parseInt(this.reel.getValue().toString()),Integer.parseInt(this.imaginaire.getValue().toString())
+			this.myController.notifySignalChanged();
 			ContenueList.addElement(new Complex((int)(Math.random()*100),(int)(Math.random()*100)));
 		}
 		if (source=="Supprimer")
@@ -206,14 +204,6 @@ public class MyViewTest implements ActionListener, Observer {
 			System.out.println("sinus de "+Debut.getText()+" à "+Fin.getText()+" avec un pas de "+Pas.getText() );
 		}
 	}
-	
-	
-	public void valueChanged(ListSelectionEvent e) {
-		
-      System.out.println("azerazeraz");
-      
-  }
-	
 	
 	
 
