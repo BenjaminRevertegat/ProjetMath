@@ -21,8 +21,10 @@ public class Main {
 		int puissance = 2;
 		Echantillon ech = new Echantillon(t,puissance);
 		ech.rempliFenetre();
-		
 		ech.affiche();
+		
+		
+		
 		/*
 		FFT fft = new FFT(t);
 		fft.effectuefft();
