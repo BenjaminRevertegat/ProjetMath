@@ -7,6 +7,8 @@ import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
+import view.FFTView;
+import view.InfoView;
 import view.MyViewTest;
 import view.XYLineChartExample;
 
@@ -16,8 +18,8 @@ public class Main {
 		
 		// INI Modele
 		//////////////////////////////////////////////////
-		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/16);
-		int puissance = 3;
+		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/2);
+		int puissance = 1;
 		f.sin();
 		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();
@@ -33,7 +35,9 @@ public class Main {
 			System.out.println("========================");
 		}
 		
+
 		XYLineChartExample a=new XYLineChartExample();
+
 		
 		///////////////////////////////////////////////////
 		FFT fftlocal = new FFT(ech.getFenetreList().get(0).getVal());
@@ -41,13 +45,14 @@ public class Main {
 		MyControllerTest control = new MyControllerTest(ech, f, fftlocal);
 		//INI View
 
-	//	MyViewTest view = new MyViewTest(fft,control);
+		InfoView view = new InfoView(ech,f,control);
+		FFTView fftview = new FFTView(ech,control);
+		
+
 		// INI Controller-view
-	//	control.init(view);
-		MyViewTest view = new MyViewTest(ech,control);
-		// INI Controller-view
-		view.setFrameSize(1200, 400);
-		control.init(view);
+		view.setFrameSize(600, 200);
+		fftview.setFrameSize(400, 600);
+		control.init(view,fftview);
 		
 		//AFFICHAGE :
 		control.displayViews();

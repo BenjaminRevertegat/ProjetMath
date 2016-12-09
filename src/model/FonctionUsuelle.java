@@ -38,6 +38,8 @@ public class FonctionUsuelle extends Observable {
 			result.add(new Complex(Math.sin(i),0));
 			LOGGER.debug("Complex : " + (new Complex(Math.sin(i),0)).toString());
 		}
+		setChanged();
+		notifyObservers(this.result);
 	}
 	
 	public void cos(){
@@ -46,6 +48,8 @@ public class FonctionUsuelle extends Observable {
 		for(double i = this.debutIntervalle; i <= this.finIntervalle ; i = i+pas){
 			result.add(new Complex(Math.cos(i),0));
 		}
+		setChanged();
+		notifyObservers(this.result);
 	}
 
 	public double getDebutIntervalle() {
@@ -54,6 +58,8 @@ public class FonctionUsuelle extends Observable {
 
 	public void setDebutIntervalle(double debutIntervalle) {
 		this.debutIntervalle = debutIntervalle;
+		setChanged();
+		notifyObservers(this.debutIntervalle);
 	}
 
 	public double getFinIntervalle() {
@@ -62,6 +68,8 @@ public class FonctionUsuelle extends Observable {
 
 	public void setFinIntervalle(double finIntervalle) {
 		this.finIntervalle = finIntervalle;
+		setChanged();
+		notifyObservers(this.finIntervalle);
 	}
 
 	public double getPas() {
@@ -70,6 +78,8 @@ public class FonctionUsuelle extends Observable {
 
 	public void setPas(double pas) {
 		this.pas = pas;
+		setChanged();
+		notifyObservers(this.pas);
 	}
 
 	public ArrayList<Complex> getResult() {
@@ -78,6 +88,8 @@ public class FonctionUsuelle extends Observable {
 
 	public void setResult(ArrayList<Complex> result) {
 		this.result = result;
+		setChanged();
+		notifyObservers(this.result);
 	}
 	
 	

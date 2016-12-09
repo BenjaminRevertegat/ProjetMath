@@ -6,7 +6,8 @@ import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
-import view.MyViewTest;
+import view.FFTView;
+import view.InfoView;
 
 public class MyControllerTest {
 	//Modele
@@ -14,7 +15,8 @@ public class MyControllerTest {
 	private FonctionUsuelle usu = null;
 	private FFT fft = null;
 	//View
-	public MyViewTest view = null;
+	public InfoView view = null;
+	public FFTView fftview = null;
 
 	public MyControllerTest(Echantillon ech,FonctionUsuelle usu,FFT fft){
 		this.myEchantillon = ech;
@@ -22,17 +24,20 @@ public class MyControllerTest {
 		this.fft = fft;
 	}
 	
-	public void init (MyViewTest v)
+	public void init (InfoView v, FFTView f)
 	{
 		this.view = v;
+		this.fftview = f;
 	}
 	
 	public void displayViews() {
 		this.view.display();
+		this.fftview.display();
 	}
 
 	public void closeViews() {
 		this.view.close();
+		this.fftview.close();
 	}
 
 	public void notifyPuissanceChanged(int p) {
@@ -59,7 +64,26 @@ public class MyControllerTest {
 		this.fft.setOutput(out);
 	}
 	
-	public void notifyPasChanged(ArrayList<Double> mod) {
+	public void notifyModuleChanged(ArrayList<Double> mod) {
 		this.fft.setModuleList(mod);
+	}
+	
+	public void removeLastElementSignal(ArrayList<Complex> signal){
+		myEchantillon.getSignal().remove(myEchantillon.getSignal().size()-1);
+		this.myEchantillon.setSignal(myEchantillon.getSignal());
+	}
+	
+	public void addElementSignal(Complex c){
+		this.myEchantillon.add(c);
+	}
+	
+	public void effectueCos(){
+		this.usu.cos();
+		this.myEchantillon.setSignal(this.usu.getResult());
+	}
+	
+	public void effectueSin(){
+		this.usu.sin();
+		this.myEchantillon.setSignal(this.usu.getResult());
 	}
 }
