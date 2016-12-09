@@ -20,13 +20,13 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// INI Modele
-		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/2);
-		int puissance = 1;
+		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/4);
+		int puissance = 2;
 		f.sin();
 		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();
 		ech.affiche();
-		
+		//Première valeur par défault
 		ModuleFFT mfft = new ModuleFFT();
 		for(int i=0; i<ech.getFenetreList().size();i++){
 			FFT fft = new FFT(ech.getFenetreList().get(i).getVal());
@@ -34,18 +34,11 @@ public class Main {
 			fft.effectueModule();
 			mfft.addFFT(fft.getOutput(),fft.getModuleList());
 		}
-		///////////////////////////////////////////////////
-		
-		ArrayList<Double> testGraph= new ArrayList<Double>();
-		for (int i=0; i<9; i++)
-		{
-		testGraph.add((double)Math.random());
-		}
-	
+		///Graph
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new AfficheGraph(testGraph).setVisible(true);
+				new AfficheGraph(mfft.getModuleList()).setVisible(true);
 			}
 		});
 		
@@ -58,7 +51,7 @@ public class Main {
 
 		
 		// INI Controller-view
-		view.setFrameSize(600, 200);
+		view.setFrameSize(600, 400);
 		fftview.setFrameSize(400, 600);
 		control.init(view,fftview);
 		

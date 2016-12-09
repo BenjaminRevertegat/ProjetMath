@@ -63,9 +63,6 @@ public class InfoView implements ActionListener, Observer {
 	private JLabel TextFin=null;
 	private JPanel choixPanel = null;
 	
-	private JTextField puissance=null;
-	private JLabel TextPuissance=null;
-	private JPanel puissancePanel = null;
 
 	public InfoView(Echantillon model, FonctionUsuelle usu, MyControllerTest controller) {
 		this.myEchantillon = model;
@@ -82,12 +79,7 @@ public class InfoView implements ActionListener, Observer {
 		contentPane = new JPanel();
 		contentPane.setLayout(new FlowLayout());
 		
-		puissancePanel = new JPanel();
-		puissancePanel.setLayout(new GridLayout(2, 1));
-		puissance = new JTextField();
-		TextPuissance = new JLabel("taille Fenetre : 2^N \n => N = ");
-		puissancePanel.add(TextPuissance);
-		puissancePanel.add(puissance);
+		
 
 		// boutons pour les fcts usuelles
 		usuelPanel = new JPanel();
@@ -149,7 +141,7 @@ public class InfoView implements ActionListener, Observer {
 		list.setVisible(true);
 		listPane.add(list);
 
-		contentPane.add(puissancePanel);
+		
 		contentPane.add(usuelPanel);
 		contentPane.add(modifieComplexPane);
 		contentPane.add(listPane);

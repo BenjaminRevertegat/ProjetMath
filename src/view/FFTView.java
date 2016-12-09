@@ -44,6 +44,10 @@ public class FFTView implements ActionListener, Observer {
 	private JPanel listPane = null;
 	private DefaultListModel<Double> ContenueList = null;
 	private JList<Double> list = null;
+	
+	private JTextField puissance=null;
+	private JLabel TextPuissance=null;
+	private JPanel puissancePanel = null;
 
 	public FFTView(ModuleFFT model, Echantillon ech, MyControllerTest controller) {
 		this.myfft = model;
@@ -57,7 +61,15 @@ public class FFTView implements ActionListener, Observer {
 	private void buildFrame(ArrayList<Double> mod) {
 		frame = new JFrame();
 		contentPane = new JPanel();
+		listPane = new JPanel();
 		contentPane.setLayout(new BorderLayout());
+		
+		puissancePanel = new JPanel();
+		puissancePanel.setLayout(new GridLayout(1,2));
+		puissance = new JTextField();
+		TextPuissance = new JLabel("taille Fenetre : 2^N \n => N = ");
+		puissancePanel.add(TextPuissance);
+		puissancePanel.add(puissance);
 
 		JButton bcalcul = new JButton("Calcul de la FFT");
 		bcalcul.addActionListener(this);
@@ -66,13 +78,14 @@ public class FFTView implements ActionListener, Observer {
 		ContenueList = new DefaultListModel<Double>();
 		list = new JList<Double>(ContenueList);
 		for (int i = 0; i < mod.size(); i++) {
-			if(mod.get(i) != null){
-			ContenueList.addElement(mod.get(i));
+			if (mod.get(i) != null) {
+				ContenueList.addElement(mod.get(i));
 			}
 		}
 		list.setVisible(true);
 		listPane.add(list);
 
+		contentPane.add(puissancePanel,BorderLayout.SOUTH);
 		contentPane.add(listPane, BorderLayout.CENTER);
 
 		frame.setContentPane(contentPane);
@@ -96,14 +109,13 @@ public class FFTView implements ActionListener, Observer {
 	public void update(Observable o, Object arg) {
 		if (o instanceof ModuleFFT) {
 			if (arg instanceof ArrayList<?>) {
-				ContenueList.removeAllElements();
+				ContenueList = new DefaultListModel<Double>();
+				list = new JList<Double>(ContenueList);
 				for (int i = 0; i < ((ArrayList<Double>) arg).size(); i++) {
 					ContenueList.addElement(((ArrayList<Double>) arg).get(i));
-					;
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -112,6 +124,7 @@ public class FFTView implements ActionListener, Observer {
 		LOGGER.debug(source.toString());
 		if (source == "Calcul de la FFT") {
 			myController.addModule(ech);
+			myController.notifyPuissanceChanged(Integer.parseInt(puissance.getText()));
 		}
 
 	}

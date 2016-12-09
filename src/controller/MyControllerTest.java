@@ -86,7 +86,7 @@ public class MyControllerTest {
 			FFT fft = new FFT(ech.getFenetreList().get(i).getVal());
 			fft.effectuefft();
 			fft.effectueModule();
-			modfft.addFFT(fft.getOutput(), fft.getModuleList());
+			this.modfft.addFFT(fft.getOutput(), fft.getModuleList());
 		}
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Observable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FFT extends Observable {
+public class FFT {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FFT.class);
 	// Vecteur de base : u0,u1,u2,u3,...
@@ -38,8 +38,7 @@ public class FFT extends Observable {
 			output = new ArrayList<Complex>();
 			output = this.fft(input);
 			LOGGER.debug("FFT effectué ");
-			setChanged();
-			notifyObservers(this.output);
+			
 		}
 
 	}
@@ -50,8 +49,7 @@ public class FFT extends Observable {
 			moduleList.add(output.get(i).module());
 		}
 		LOGGER.debug("Calcul du module effectué");
-		setChanged();
-		notifyObservers(this.moduleList);
+		
 	}
 
 	private ArrayList<Complex> fft(ArrayList<Complex> x) {
@@ -148,8 +146,7 @@ public class FFT extends Observable {
 
 	public void setOutput(ArrayList<Complex> output) {
 		this.output = output;
-		setChanged();
-		notifyObservers(this.output);
+	
 	}
 
 	public static ArrayList<Complex> getOmegaList() {
@@ -166,8 +163,7 @@ public class FFT extends Observable {
 
 	public void setModuleList(ArrayList<Double> moduleList) {
 		this.moduleList = moduleList;
-		setChanged();
-		notifyObservers(this.moduleList);
+	
 	}
 	
 	

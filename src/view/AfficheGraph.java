@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,17 +25,23 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import model.ModuleFFT;
+
 /**
  * Code adapté de XYLineChartExample utilisant la XYDatabase
  * @author www.codejava.net
  *
  */
 
-public class AfficheGraph extends JFrame {
+public class AfficheGraph extends JFrame implements Observer{
+	
+	private ModuleFFT mfft = null;
 
 	public AfficheGraph(ArrayList<Double> tab) {
 		super("Graphique fréquenciel");
-		
+		mfft = new ModuleFFT();
+		mfft.setModuleList(tab);
+		mfft.addObserver(this);
 		JPanel chartPanel = createChartPanel(tab);
 		add(chartPanel, BorderLayout.CENTER);
 		
@@ -106,7 +114,7 @@ public class AfficheGraph extends JFrame {
 		plot.setDomainGridlinePaint(Color.BLACK);
 		
 	}
-	
+	/*
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -114,5 +122,17 @@ public class AfficheGraph extends JFrame {
 				new AfficheGraph(new ArrayList<Double>()).setVisible(true);
 			}
 		});
+	}*/
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof ModuleFFT) {
+			if (arg instanceof ArrayList<?>) {
+				for (int i = 0; i < ((ArrayList<Double>) arg).size(); i++) {
+					this.createDataset((ArrayList<Double>) arg);
+				}
+			}
+		}
+		
 	}
 }

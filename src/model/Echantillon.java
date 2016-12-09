@@ -59,6 +59,8 @@ public class Echantillon extends Observable {
 			}
 		}
 		fenetreList.add(local);
+		setChanged();
+		notifyObservers(this.fenetreList);
 
 	}
 
