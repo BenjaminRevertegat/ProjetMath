@@ -6,30 +6,30 @@ import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
+import model.ModuleFFT;
 import view.FFTView;
 import view.InfoView;
 
 public class MyControllerTest {
-	//Modele
+	// Modele
 	private Echantillon myEchantillon = null;
 	private FonctionUsuelle usu = null;
-	private FFT fft = null;
-	//View
+	private ModuleFFT modfft = null;
+	// View
 	public InfoView view = null;
 	public FFTView fftview = null;
 
-	public MyControllerTest(Echantillon ech,FonctionUsuelle usu,FFT fft){
+	public MyControllerTest(Echantillon ech, FonctionUsuelle usu, ModuleFFT modfft) {
 		this.myEchantillon = ech;
 		this.usu = usu;
-		this.fft = fft;
+		this.modfft = modfft;
 	}
-	
-	public void init (InfoView v, FFTView f)
-	{
+
+	public void init(InfoView v, FFTView f) {
 		this.view = v;
 		this.fftview = f;
 	}
-	
+
 	public void displayViews() {
 		this.view.display();
 		this.fftview.display();
@@ -43,47 +43,48 @@ public class MyControllerTest {
 	public void notifyPuissanceChanged(int p) {
 		this.myEchantillon.setPuissance(p);
 	}
-	
+
 	public void notifySignalChanged(ArrayList<Complex> newSignal) {
 		this.myEchantillon.setSignal(newSignal);
 	}
-	
+
 	public void notifyDebutChanged(double start) {
 		this.usu.setDebutIntervalle(start);
 	}
-	
+
 	public void notifyFinChanged(double end) {
 		this.usu.setFinIntervalle(end);
 	}
-	
+
 	public void notifyPasChanged(double pas) {
 		this.usu.setPas(pas);
 	}
-	
-	public void notifyOutputChanged(ArrayList<Complex> out) {
-		this.fft.setOutput(out);
-	}
-	
-	public void notifyModuleChanged(ArrayList<Double> mod) {
-		this.fft.setModuleList(mod);
-	}
-	
-	public void removeLastElementSignal(ArrayList<Complex> signal){
-		myEchantillon.getSignal().remove(myEchantillon.getSignal().size()-1);
+
+	public void removeLastElementSignal(ArrayList<Complex> signal) {
+		myEchantillon.getSignal().remove(myEchantillon.getSignal().size() - 1);
 		this.myEchantillon.setSignal(myEchantillon.getSignal());
 	}
-	
-	public void addElementSignal(Complex c){
+
+	public void addElementSignal(Complex c) {
 		this.myEchantillon.add(c);
 	}
-	
-	public void effectueCos(){
+
+	public void effectueCos() {
 		this.usu.cos();
 		this.myEchantillon.setSignal(this.usu.getResult());
 	}
-	
-	public void effectueSin(){
+
+	public void effectueSin() {
 		this.usu.sin();
 		this.myEchantillon.setSignal(this.usu.getResult());
+	}
+
+	public void addModule(Echantillon ech) {
+		for (int i = 0; i < ech.getFenetreList().size(); i++) {
+			FFT fft = new FFT(ech.getFenetreList().get(i).getVal());
+			fft.effectuefft();
+			fft.effectueModule();
+			modfft.addFFT(fft.getOutput(), fft.getModuleList());
+		}
 	}
 }

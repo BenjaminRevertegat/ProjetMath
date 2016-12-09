@@ -155,7 +155,7 @@ public class InfoView implements ActionListener, Observer {
 		contentPane.add(listPane);
 
 		frame.setContentPane(contentPane);
-		frame.setTitle("Information");
+		frame.setTitle("Informations");
 		frame.pack();
 	}
 

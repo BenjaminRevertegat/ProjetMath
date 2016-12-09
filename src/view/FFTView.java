@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
+import model.ModuleFFT;
 
 public class FFTView implements ActionListener, Observer {
 
@@ -31,32 +33,52 @@ public class FFTView implements ActionListener, Observer {
 	// Mon Controller
 	private MyControllerTest myController = null;
 	// Mon modèle
-	private Echantillon myEchantillon = null;
-	private FFT myfft = null;
+	private ModuleFFT myfft = null;
+	private Echantillon ech = null;
 
 	// Fenetre
 	private JFrame frame = null;
 	private JPanel contentPane = null;
-	
-	public FFTView(Echantillon model, MyControllerTest controller) {
-		this.myEchantillon = model;
-		this.myEchantillon.addObserver(this);
+	private JButton bcalcul = null;
+
+	private JPanel listPane = null;
+	private DefaultListModel<Double> ContenueList = null;
+	private JList<Double> list = null;
+
+	public FFTView(ModuleFFT model, Echantillon ech, MyControllerTest controller) {
+		this.myfft = model;
+		this.myfft.addObserver(this);
+		this.ech = ech;
+		this.ech.addObserver(this);
 		this.myController = controller;
-		buildFrame(model.getSignal());
+		buildFrame(model.getModuleList());
 	}
-	
-	private void buildFrame(ArrayList<Complex> signal) {
+
+	private void buildFrame(ArrayList<Double> mod) {
 		frame = new JFrame();
 		contentPane = new JPanel();
-		contentPane.setLayout(new FlowLayout());
-		
-		
+		contentPane.setLayout(new BorderLayout());
+
+		JButton bcalcul = new JButton("Calcul de la FFT");
+		bcalcul.addActionListener(this);
+		contentPane.add(bcalcul, BorderLayout.NORTH);
+
+		ContenueList = new DefaultListModel<Double>();
+		list = new JList<Double>(ContenueList);
+		for (int i = 0; i < mod.size(); i++) {
+			if(mod.get(i) != null){
+			ContenueList.addElement(mod.get(i));
+			}
+		}
+		list.setVisible(true);
+		listPane.add(list);
+
+		contentPane.add(listPane, BorderLayout.CENTER);
+
 		frame.setContentPane(contentPane);
 		frame.setTitle("FFT");
 		frame.pack();
 	}
-	
-	
 
 	public void close() {
 		frame.dispose();
@@ -72,13 +94,25 @@ public class FFTView implements ActionListener, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		if (o instanceof ModuleFFT) {
+			if (arg instanceof ArrayList<?>) {
+				ContenueList.removeAllElements();
+				for (int i = 0; i < ((ArrayList<Double>) arg).size(); i++) {
+					ContenueList.addElement(((ArrayList<Double>) arg).get(i));
+					;
+				}
+			}
+		}
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object source = e.getActionCommand();
+		LOGGER.debug(source.toString());
+		if (source == "Calcul de la FFT") {
+			myController.addModule(ech);
+		}
 
 	}
 
