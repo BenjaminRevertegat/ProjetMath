@@ -9,11 +9,8 @@ import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
-<<<<<<< HEAD
 import model.ModuleFFT;
-=======
 import view.AfficheGraph;
->>>>>>> 777a7f046b876aef16c0b4b6ea9e4e2c078347f4
 import view.FFTView;
 import view.InfoView;
 
@@ -37,13 +34,6 @@ public class Main {
 			fft.effectueModule();
 			mfft.addFFT(fft.getOutput(),fft.getModuleList());
 		}
-<<<<<<< HEAD
-=======
-		
-
-		
-
-		
 		///////////////////////////////////////////////////
 		
 		ArrayList<Double> testGraph= new ArrayList<Double>();
@@ -58,24 +48,14 @@ public class Main {
 				new AfficheGraph(testGraph).setVisible(true);
 			}
 		});
-	
 		
-		
-		
-		
-		
-		FFT fftlocal = new FFT(ech.getFenetreList().get(0).getVal());
->>>>>>> 777a7f046b876aef16c0b4b6ea9e4e2c078347f4
 		// INI Controller-modèle
 		MyControllerTest control = new MyControllerTest(ech, f,mfft);
 		//INI View
 
 		InfoView view = new InfoView(ech,f,control);
 		FFTView fftview = new FFTView(mfft,ech,control);
-		
 
-	
-		
 		
 		// INI Controller-view
 		view.setFrameSize(600, 200);
