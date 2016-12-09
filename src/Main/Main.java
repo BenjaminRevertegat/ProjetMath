@@ -18,10 +18,10 @@ import view.InfoView;
 public class Main {
 	
 	//attribue temporaire pour le paramétrage :
-	private static double pas = Math.PI/2;
-	private static double debut = -5*Math.PI;
-	private static double fin = 5*Math.PI;
-	private static int N = 3;
+	private static double pas = Math.PI/4;
+	private static double debut = -2*Math.PI;
+	private static double fin = 2*Math.PI;
+	private static int N = 2;
 	///////////////////////////////////////////
 
 	public static void main(String[] args) {
@@ -52,7 +52,6 @@ public class Main {
 		// INI Controller-modèle
 		MyControllerTest control = new MyControllerTest(ech, f,mfft);
 		//INI View
-
 		InfoView view = new InfoView(ech,f,control);
 		FFTView fftview = new FFTView(mfft,ech,control);
 
