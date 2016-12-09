@@ -18,6 +18,7 @@ public class MyControllerTest {
 	// View
 	public InfoView view = null;
 	public FFTView fftview = null;
+	
 
 	public MyControllerTest(Echantillon ech, FonctionUsuelle usu, ModuleFFT modfft) {
 		this.myEchantillon = ech;
@@ -28,6 +29,7 @@ public class MyControllerTest {
 	public void init(InfoView v, FFTView f) {
 		this.view = v;
 		this.fftview = f;
+	
 	}
 
 	public void displayViews() {

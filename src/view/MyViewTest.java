@@ -75,6 +75,7 @@ public class MyViewTest implements ActionListener, Observer {
 		
 		this.myController = controller;
 		buildFrame(model.getSignal());
+		
 	}
 
 	private void buildFrame(ArrayList<Complex> tab) {
@@ -156,6 +157,8 @@ public class MyViewTest implements ActionListener, Observer {
 		frame.setContentPane(contentPane);
 		frame.setTitle("FFT");
 		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 	}
 	
 	public void close() {
