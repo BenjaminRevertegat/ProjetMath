@@ -16,12 +16,19 @@ import view.InfoView;
 
 
 public class Main {
+	
+	//attribue temporaire pour le paramétrage :
+	private static double pas = Math.PI/2;
+	private static double debut = -5*Math.PI;
+	private static double fin = 5*Math.PI;
+	private static int N = 3;
+	///////////////////////////////////////////
 
 	public static void main(String[] args) {
 		
 		// INI Modele
-		FonctionUsuelle f = new FonctionUsuelle(-Math.PI/2,Math.PI/2,Math.PI/4);
-		int puissance = 2;
+		FonctionUsuelle f = new FonctionUsuelle(debut,fin,pas);
+		int puissance = N;
 		f.sin();
 		Echantillon ech = new Echantillon(f.getResult(),puissance);
 		ech.rempliFenetre();

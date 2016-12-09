@@ -82,6 +82,7 @@ public class MyControllerTest {
 	}
 
 	public void addModule(Echantillon ech) {
+		this.modfft.reset();
 		for (int i = 0; i < ech.getFenetreList().size(); i++) {
 			FFT fft = new FFT(ech.getFenetreList().get(i).getVal());
 			fft.effectuefft();

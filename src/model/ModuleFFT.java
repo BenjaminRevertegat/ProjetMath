@@ -15,6 +15,11 @@ public class ModuleFFT extends Observable {
 			moduleList = new ArrayList<Double>();
 		}
 		
+		public void reset(){
+			output = new ArrayList<Complex>();
+			moduleList = new ArrayList<Double>();
+		}
+		
 		public void addFFT(ArrayList<Complex> output, ArrayList<Double> mod)
 		{
 			this.output.addAll(output);
