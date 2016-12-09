@@ -2,15 +2,17 @@ package Main;
 
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 import controller.MyControllerTest;
 import model.Complex;
 import model.Echantillon;
 import model.FFT;
 import model.FonctionUsuelle;
+import view.AfficheGraph;
 import view.FFTView;
 import view.InfoView;
-import view.MyViewTest;
-import view.XYLineChartExample;
+
 
 public class Main {
 
@@ -36,10 +38,29 @@ public class Main {
 		}
 		
 
-		XYLineChartExample a=new XYLineChartExample();
+		
 
 		
 		///////////////////////////////////////////////////
+		
+		ArrayList<Double> testGraph= new ArrayList<Double>();
+		for (int i=0; i<9; i++)
+		{
+		testGraph.add((double)Math.random());
+		}
+	
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new AfficheGraph(testGraph).setVisible(true);
+			}
+		});
+	
+		
+		
+		
+		
+		
 		FFT fftlocal = new FFT(ech.getFenetreList().get(0).getVal());
 		// INI Controller-modèle
 		MyControllerTest control = new MyControllerTest(ech, f, fftlocal);
@@ -49,6 +70,9 @@ public class Main {
 		FFTView fftview = new FFTView(ech,control);
 		
 
+	
+		
+		
 		// INI Controller-view
 		view.setFrameSize(600, 200);
 		fftview.setFrameSize(400, 600);

@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,31 +24,30 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
- * This program demonstrates how to draw XY line chart with XYDataset
- * using JFreechart library.
+ * Code adapté de XYLineChartExample utilisant la XYDatabase
  * @author www.codejava.net
  *
  */
 
-public class XYLineChartExample extends JFrame {
+public class AfficheGraph extends JFrame {
 
-	public XYLineChartExample() {
-		super("XY Line Chart Example with JFreechart");
+	public AfficheGraph(ArrayList<Double> tab) {
+		super("Graphique fréquenciel");
 		
-		JPanel chartPanel = createChartPanel();
+		JPanel chartPanel = createChartPanel(tab);
 		add(chartPanel, BorderLayout.CENTER);
 		
-		setSize(640, 480);
+		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
 	
-	private JPanel createChartPanel() {
-		String chartTitle = "FFT";
-		String xAxisLabel = "X";
-		String yAxisLabel = "Y";
+	private JPanel createChartPanel(ArrayList<Double> tab) {
+		String chartTitle = "Grapique résultant de la FFT";
+		String yAxisLabel = "Modules";
+		String xAxisLabel = "Pas";
 		
-		XYDataset dataset = createDataset();
+		XYDataset dataset = createDataset(tab);
 		
 		JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, 
 				xAxisLabel, yAxisLabel, dataset);
@@ -69,18 +69,16 @@ public class XYLineChartExample extends JFrame {
 		return new ChartPanel(chart);
 	}
 
-	private XYDataset createDataset() {
+	private XYDataset createDataset(ArrayList<Double> tab) {
 		XYSeriesCollection dataset = new XYSeriesCollection();
-		XYSeries series1 = new XYSeries("FFT Sinus");
+		XYSeries donnees = new XYSeries("FFT des valeurs");
 		
-		series1.add(1.0, 30);
-		series1.add(2.0, 3.0);
-		series1.add(3.0, 2.5);
-		series1.add(3.5, 2.8);
-		series1.add(4.2, 6.0);
-		series1.add(100.2, 6.0);
+		for(int i=0; i<tab.size(); i++)
+		{
+			donnees.add((double)i,tab.get(i));
+		}
 				
-		dataset.addSeries(series1);
+		dataset.addSeries(donnees);
 		return dataset;
 	}
 	
@@ -113,7 +111,7 @@ public class XYLineChartExample extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new XYLineChartExample().setVisible(true);
+				new AfficheGraph(new ArrayList<Double>()).setVisible(true);
 			}
 		});
 	}
